@@ -9,5 +9,4 @@ class TeamBoApiApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }
