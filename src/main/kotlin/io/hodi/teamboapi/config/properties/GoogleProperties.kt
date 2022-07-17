@@ -9,5 +9,6 @@ data class GoogleProperties(
     var url: String = "",
     var clientId: String = "",
     var clientSecret: String = "",
-    var scope: String = ""
+    var scope: String = "",
+    var redirectUri: String = ""
 )

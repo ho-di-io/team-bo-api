@@ -1,7 +1,9 @@
 package io.hodi.teamboapi.user.webclient
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import io.hodi.teamboapi.config.properties.GoogleProperties
+import io.hodi.teamboapi.user.webclient.request.GoogleTokenRequest
+import io.hodi.teamboapi.user.webclient.response.GoogleProfileInfoResponse
+import io.hodi.teamboapi.user.webclient.response.GoogleTokenResponse
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
@@ -18,61 +20,39 @@ class GoogleWebClient(
         const val GRANT_TYPE: String = "authorization_code"
     }
 
-    fun getIdToken(code: String): String? {
-        val tokenParam = TokenRequestBody(
+    fun getIdToken(code: String): GoogleTokenResponse? {
+        val googleTokenRequest = GoogleTokenRequest(
             code = code,
             clientId = googleProperties.clientId,
             clientSecret = googleProperties.clientSecret,
-            redirectUri = "http://localhost:8080",
+            redirectUri = googleProperties.redirectUri,
             grantType = GRANT_TYPE
         )
-        val tokenResponseBody = googleWebClient.post()
-            .uri(googleProperties.url)
-            .bodyValue(tokenParam)
+        val googleTokenResponse = googleWebClient.post()
+            .uri {
+                it.path("/token")
+                    .build()
+            }
+            .bodyValue(googleTokenRequest)
             .retrieve()
             .onStatus(HttpStatus.BAD_REQUEST::equals) {
                 Mono.just(IllegalArgumentException())
             }
-            .bodyToMono<TokenResponseBody>()
+            .bodyToMono<GoogleTokenResponse>()
             .block()
 
-        return tokenResponseBody?.idToken
+        return googleTokenResponse
     }
 
-    data class TokenRequestBody(
-        val code: String,
-        @JsonProperty("client_id")
-        val clientId: String,
-        @JsonProperty("client_secret")
-        val clientSecret: String,
-        @JsonProperty("redirect_uri")
-        val redirectUri: String,
-        @JsonProperty("grant_type")
-        val grantType: String
-    )
-
-    data class TokenResponseBody(
-        @JsonProperty("access_token")
-        val accessToken: String?,
-        @JsonProperty("id_token")
-        val idToken: String?
-    )
-
-    fun getProfileInfo(code: String): String? {
-        val tokenParam = TokenRequestBody(
-            code = code,
-            clientId = googleProperties.clientId,
-            clientSecret = googleProperties.clientSecret,
-            redirectUri = "http://localhost:8080",
-            grantType = GRANT_TYPE
-        )
-        val tokenResponseBody = googleWebClient.post()
-            .uri(googleProperties.url)
-            .bodyValue(tokenParam)
+    fun getProfileInfo(idToken: String): GoogleProfileInfoResponse? {
+        return googleWebClient.get()
+            .uri {
+                it.path("/tokeninfo")
+                    .queryParam("id_token", idToken)
+                    .build()
+            }
             .retrieve()
-            .bodyToMono<TokenResponseBody>()
+            .bodyToMono<GoogleProfileInfoResponse>()
             .block()
-
-        return tokenResponseBody?.idToken
     }
 }
