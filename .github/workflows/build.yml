@@ -1,8 +1,8 @@
-name: Build
+name: SonarQube
 on:
   push:
     branches:
-      - master
+      - develop
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -29,6 +29,8 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
+      - name: Start containers
+        run: docker-compose -f "./docker/docker-compose.yml" up -d --build
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build and analyze
@@ -36,3 +38,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew build sonarqube --info
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "./docker/docker-compose.yml" down
