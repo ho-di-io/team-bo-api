@@ -1,6 +1,6 @@
-package io.hodi.teamboapi.user.service
+package io.hodi.teamboapi.domain.user.service
 
-import io.hodi.teamboapi.user.webclient.GoogleWebClient
+import io.hodi.teamboapi.domain.user.webclient.GoogleWebClient
 import org.springframework.stereotype.Service
 
 @Service

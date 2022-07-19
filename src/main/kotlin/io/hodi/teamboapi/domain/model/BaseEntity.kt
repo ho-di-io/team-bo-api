@@ -1,4 +1,4 @@
-package io.hodi.teamboapi.model
+package io.hodi.teamboapi.domain.model
 
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate

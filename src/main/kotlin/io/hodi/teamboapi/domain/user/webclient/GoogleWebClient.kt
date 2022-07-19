@@ -1,9 +1,9 @@
-package io.hodi.teamboapi.user.webclient
+package io.hodi.teamboapi.domain.user.webclient
 
-import io.hodi.teamboapi.config.properties.GoogleProperties
-import io.hodi.teamboapi.user.webclient.request.GoogleTokenRequest
-import io.hodi.teamboapi.user.webclient.response.GoogleProfileInfoResponse
-import io.hodi.teamboapi.user.webclient.response.GoogleTokenResponse
+import io.hodi.teamboapi.global.config.properties.GoogleProperties
+import io.hodi.teamboapi.domain.user.webclient.request.GoogleTokenRequest
+import io.hodi.teamboapi.domain.user.webclient.response.GoogleProfileInfoResponse
+import io.hodi.teamboapi.domain.user.webclient.response.GoogleTokenResponse
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient

@@ -9,4 +9,9 @@ google:
     clientId: 337016807216-87ttk4eopkm6to64i8cdk9br54hmlpob.apps.googleusercontent.com
     clientSecret: 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
     scope: email+profile
-    redirectUri: http://localhost:8080
+    redirectUri: http://localhost:808
+
+jwt:
+    iss: http://localhost:8080
+    key: 2!@##-g${UdJ^(}
+    expiration: 5000

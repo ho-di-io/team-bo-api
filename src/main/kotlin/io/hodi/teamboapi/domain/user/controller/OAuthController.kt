@@ -1,7 +1,7 @@
-package io.hodi.teamboapi.user.controller
+package io.hodi.teamboapi.domain.user.controller
 
-import io.hodi.teamboapi.user.service.OAuthService
-import io.hodi.teamboapi.utils.JwtTokenUtils
+import io.hodi.teamboapi.domain.user.service.OAuthService
+import io.hodi.teamboapi.global.utils.JwtTokenUtils
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping

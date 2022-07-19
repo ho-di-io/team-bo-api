@@ -1,4 +1,4 @@
-package io.hodi.teamboapi.user.model
+package io.hodi.teamboapi.domain.user.model
 
 enum class Active(
     val status: String

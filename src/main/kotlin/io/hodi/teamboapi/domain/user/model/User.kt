@@ -1,6 +1,6 @@
-package io.hodi.teamboapi.user.model
+package io.hodi.teamboapi.domain.user.model
 
-import io.hodi.teamboapi.model.BaseEntity
+import io.hodi.teamboapi.domain.model.BaseEntity
 import org.hibernate.annotations.ColumnDefault
 import javax.persistence.*
 

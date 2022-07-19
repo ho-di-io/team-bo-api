@@ -1,6 +1,6 @@
-package io.hodi.teamboapi.config
+package io.hodi.teamboapi.global.config
 
-import io.hodi.teamboapi.config.properties.GoogleProperties
+import io.hodi.teamboapi.global.config.properties.GoogleProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.client.reactive.ReactorClientHttpConnector

@@ -1,4 +1,4 @@
-package io.hodi.teamboapi.config.properties
+package io.hodi.teamboapi.global.config.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Configuration
