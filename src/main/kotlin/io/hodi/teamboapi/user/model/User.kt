@@ -1,7 +1,6 @@
 package io.hodi.teamboapi.user.model
 
 import io.hodi.teamboapi.model.BaseEntity
-import org.hibernate.annotations.ColumnDefault
 import javax.persistence.*
 
 @Entity
@@ -15,7 +14,6 @@ class User(
     val socialId: String,
 
     @Column(name = "role", nullable = false)
-    @ColumnDefault("ROLE_GUEST")
     @Enumerated(EnumType.STRING)
     val role: Role, // ROLE_GUEST, ROLE_USER, ROLE_MANAGER, ROLE_ADMIN
 

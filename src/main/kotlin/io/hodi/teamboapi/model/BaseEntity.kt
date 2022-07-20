@@ -10,13 +10,13 @@ import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
 @EntityListeners(value = [AuditingEntityListener::class])
-class BaseEntity {
+abstract class BaseEntity {
 
     @CreatedDate
     @Column(name = "createdAt", nullable = false, updatable = false)
-    val createdAt: LocalDateTime = LocalDateTime.MIN
+    lateinit var createdAt: LocalDateTime
 
     @LastModifiedDate
     @Column(name = "updatedAt", nullable = false)
-    val updatedAt: LocalDateTime = LocalDateTime.MIN
+    lateinit var updatedAt: LocalDateTime
 }
