@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import java.lang.IllegalStateException
+import java.util.*
 import javax.transaction.Transactional
 
 @SpringBootTest
@@ -20,6 +21,7 @@ class UserRepositoryTest(
     @Test
     fun save() {
         val user = User(
+            uuid = UUID.randomUUID(),
             socialId = "101957368256422235993",
             role = Role.ROLE_USER,
             name = "호더",
@@ -32,17 +34,18 @@ class UserRepositoryTest(
 
         val savedUser = userRepository.save(user)
 
+        println("uuid: ${savedUser.uuid}")
         println("savedUser: ${savedUser.name}")
-        println("user: ${user.name}")
         println("createdAt: ${savedUser.createdAt}")
         println("updatedAt: ${savedUser.updatedAt}")
-        assertEquals(savedUser.id, user.id)
+        assertEquals(savedUser.uuid, user.uuid)
         assertEquals(savedUser.name, user.name)
     }
 
     @Test
     fun findAll() {
         val user1 = User(
+            uuid = UUID.randomUUID(),
             socialId = "101957368256422235993",
             role = Role.ROLE_USER,
             name = "호더1",
@@ -55,6 +58,7 @@ class UserRepositoryTest(
         userRepository.save(user1)
 
         val user2 = User(
+            uuid = UUID.randomUUID(),
             socialId = "201957368256422235993",
             role = Role.ROLE_USER,
             name = "호더2",
@@ -75,6 +79,7 @@ class UserRepositoryTest(
     @Test
     fun findBySocialId() {
         val user = User(
+            uuid = UUID.randomUUID(),
             socialId = "101957368256422235993",
             role = Role.ROLE_USER,
             name = "호더",
@@ -91,13 +96,14 @@ class UserRepositoryTest(
 
         println("findUser: ${findUser.name}")
         println("user: ${user.name}")
-        assertEquals(findUser.id, user.id)
+        assertEquals(findUser.uuid, user.uuid)
         assertEquals(findUser.name, user.name)
     }
 
     @Test
     fun findByEmail() {
         val user = User(
+            uuid = UUID.randomUUID(),
             socialId = "101957368256422235993",
             role = Role.ROLE_USER,
             name = "호더",
@@ -112,7 +118,7 @@ class UserRepositoryTest(
         val findUser = userRepository.findByEmail(user.email)
             .orElseThrow { IllegalStateException("User not found") }
 
-        assertEquals(findUser.id, user.id)
+        assertEquals(findUser.uuid, user.uuid)
         assertEquals(findUser.name, user.name)
     }
 }

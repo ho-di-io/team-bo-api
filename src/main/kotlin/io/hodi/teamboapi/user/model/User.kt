@@ -1,14 +1,15 @@
 package io.hodi.teamboapi.user.model
 
 import io.hodi.teamboapi.model.BaseEntity
+import java.util.*
 import javax.persistence.*
 
 @Entity
 @Table(name = "user")
 class User(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    @Column(name = "uuid", columnDefinition = "BINARY(16)")
+    val uuid: UUID,
 
     @Column(name = "socialId", nullable = false)
     val socialId: String,
